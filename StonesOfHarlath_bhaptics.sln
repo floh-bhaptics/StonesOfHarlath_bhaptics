@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StonesOfHarlath_bhaptics", "StonesOfHarlath_bhaptics.csproj", "{F37B7A17-3F71-491A-9F18-E6FA59B81B47}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F37B7A17-3F71-491A-9F18-E6FA59B81B47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F37B7A17-3F71-491A-9F18-E6FA59B81B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F37B7A17-3F71-491A-9F18-E6FA59B81B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F37B7A17-3F71-491A-9F18-E6FA59B81B47}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2CE88D4-6B1C-4CE0-BD4D-11136BBEA4B3}
+	EndGlobalSection
+EndGlobal
