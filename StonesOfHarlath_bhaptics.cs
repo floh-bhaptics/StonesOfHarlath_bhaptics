@@ -45,8 +45,17 @@ namespace StonesOfHarlath_bhaptics
             [HarmonyPostfix]
             public static void Postfix(PlayerCombatUnit __instance, float healthAmount)
             {
-                // tactsuitVr.LOG("Gain health: " + healthAmount.ToString());
-                tactsuitVr.PlaybackHaptics("Healing");
+                if (healthAmount >= 30) tactsuitVr.PlaybackHaptics("Healing");
+            }
+        }
+
+        [HarmonyPatch(typeof(PlayerCombatUnit), "GainManna", new Type[] { typeof(float) })]
+        public class bhaptics_GainManna
+        {
+            [HarmonyPostfix]
+            public static void Postfix(PlayerCombatUnit __instance, float mannaAmmount)
+            {
+                if (mannaAmmount >= 30) tactsuitVr.PlaybackHaptics("Healing");
             }
         }
 
@@ -181,7 +190,8 @@ namespace StonesOfHarlath_bhaptics
             [HarmonyPostfix]
             public static void Postfix()
             {
-                tactsuitVr.CastSpell("SpaceTime", dominantRightHand);
+                tactsuitVr.LOG("Teleport");
+                tactsuitVr.PlaybackHaptics("TeleportThrough");
             }
         }
 
@@ -191,6 +201,7 @@ namespace StonesOfHarlath_bhaptics
             [HarmonyPostfix]
             public static void Postfix()
             {
+                tactsuitVr.LOG("Teleport");
                 tactsuitVr.PlaybackHaptics("TeleportThrough");
             }
         }
