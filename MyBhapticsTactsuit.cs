@@ -19,6 +19,7 @@ namespace MyBhapticsTactsuit
         public bool systemInitialized = false;
         // Event to start and stop the heartbeat thread
         private static ManualResetEvent HeartBeat_mrse = new ManualResetEvent(false);
+        private static ManualResetEvent SlowHeartBeat_mrse = new ManualResetEvent(false);
         // dictionary of all feedback patterns found in the bHaptics directory
         public Dictionary<String, FileInfo> FeedbackMap = new Dictionary<String, FileInfo>();
 
@@ -34,6 +35,16 @@ namespace MyBhapticsTactsuit
                 Thread.Sleep(600);
             }
         }
+        public void SlowHeartBeatFunc()
+        {
+            while (true)
+            {
+                // Check if reset event is active
+                SlowHeartBeat_mrse.WaitOne();
+                bHaptics.SubmitRegistered("HeartBeatSlow");
+                Thread.Sleep(1000);
+            }
+        }
 
         public TactsuitVR()
         {
@@ -46,6 +57,8 @@ namespace MyBhapticsTactsuit
             LOG("Starting HeartBeat thread...");
             Thread HeartBeatThread = new Thread(HeartBeatFunc);
             HeartBeatThread.Start();
+            Thread SlowHeartBeatThread = new Thread(SlowHeartBeatFunc);
+            SlowHeartBeatThread.Start();
         }
 
         public void LOG(string logStr)
@@ -137,6 +150,21 @@ namespace MyBhapticsTactsuit
             bHaptics.SubmitRegistered(keyVest, keyVest, scaleOption, rotationFront);
         }
 
+        public void CastSpell(string spellName, bool isRightHand, float intensity = 1.0f)
+        {
+            float duration = 1.0f;
+            var scaleOption = new bHaptics.ScaleOption(intensity, duration);
+            var rotationFront = new bHaptics.RotationOption(0f, 0f);
+            string postfix = "_L";
+            if (isRightHand) { postfix = "_R"; }
+
+            string keyHand = "Spell" + spellName + "Hand" + postfix;
+            string keyArm = "Spell" + spellName + "Arm" + postfix;
+            string keyVest = "Spell" + spellName + "Vest" + postfix;
+            bHaptics.SubmitRegistered(keyHand, keyHand, scaleOption, rotationFront);
+            bHaptics.SubmitRegistered(keyArm, keyArm, scaleOption, rotationFront);
+            bHaptics.SubmitRegistered(keyVest, keyVest, scaleOption, rotationFront);
+        }
 
         public void HeadShot(String key, float hitAngle)
         {
@@ -160,6 +188,15 @@ namespace MyBhapticsTactsuit
         public void StopHeartBeat()
         {
             HeartBeat_mrse.Reset();
+        }
+        public void StartHeartBeatSlow()
+        {
+            SlowHeartBeat_mrse.Set();
+        }
+
+        public void StopHeartBeatSlow()
+        {
+            SlowHeartBeat_mrse.Reset();
         }
 
         public bool IsPlaying(String effect)
