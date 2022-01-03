@@ -190,11 +190,11 @@ namespace StonesOfHarlath_bhaptics
             [HarmonyPostfix]
             public static void Postfix()
             {
-                tactsuitVr.LOG("Teleport");
                 tactsuitVr.PlaybackHaptics("TeleportThrough");
             }
         }
 
+        /*
         [HarmonyPatch(typeof(SpellSpaceTime), "Teleport", new Type[] { })]
         public class bhaptics_Teleport
         {
@@ -205,6 +205,7 @@ namespace StonesOfHarlath_bhaptics
                 tactsuitVr.PlaybackHaptics("TeleportThrough");
             }
         }
+        */
 
         [HarmonyPatch(typeof(SpellNature), "CastSpell", new Type[] { typeof(int) })]
         public class bhaptics_CastNatureSpell
