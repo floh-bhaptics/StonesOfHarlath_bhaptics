@@ -45,7 +45,7 @@ namespace StonesOfHarlath_bhaptics
             [HarmonyPostfix]
             public static void Postfix(PlayerCombatUnit __instance, float healthAmount)
             {
-                tactsuitVr.LOG("Gain health: " + healthAmount.ToString());
+                // tactsuitVr.LOG("Gain health: " + healthAmount.ToString());
                 tactsuitVr.PlaybackHaptics("Healing");
             }
         }
@@ -90,7 +90,11 @@ namespace StonesOfHarlath_bhaptics
             [HarmonyPostfix]
             public static void Postfix(PlayerSword __instance, Collision other)
             {
-                tactsuitVr.LOG("Sword damage: " + __instance.Damage);
+                if (__instance.KnockBackStrength > 1.5f)
+                {
+                    tactsuitVr.Recoil("Block", !dominantRightHand);
+                    return;
+                }
                 tactsuitVr.Recoil("Blade", dominantRightHand);
             }
         }
