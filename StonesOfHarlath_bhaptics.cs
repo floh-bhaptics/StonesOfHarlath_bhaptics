@@ -188,8 +188,9 @@ namespace StonesOfHarlath_bhaptics
         public class bhaptics_CastSpaceTimeSpell
         {
             [HarmonyPostfix]
-            public static void Postfix()
+            public static void Postfix(SpellSpaceTime __instance, int ammoToUse)
             {
+                if (ammoToUse == 2) return;
                 tactsuitVr.PlaybackHaptics("TeleportThrough");
             }
         }
